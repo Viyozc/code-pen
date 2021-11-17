@@ -1,0 +1,26 @@
+{
+  "name": "code-pen",
+  "version": "1.0.0",
+  "description": "record coding.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "jest": "^27.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Viyozc/code-pen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Viyozc/code-pen/issues"
+  },
+  "homepage": "https://github.com/Viyozc/code-pen#readme"
+}
