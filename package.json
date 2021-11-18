@@ -8,12 +8,19 @@
   },
   "dependencies": {
     "inquirer": "^8.2.0",
+    "progress": "^2.0.3",
     "jest": "^27.3.1",
-    "progress": "^2.0.3"
+    "promise": "promises-aplus-tests ./src/codes/promise.ts",
+    "promises-aplus-tests": "^2.1.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
+  },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "pro": "npx promises-aplus-tests ./src/codes/promise.ts"
   },
   "repository": {
     "type": "git",
