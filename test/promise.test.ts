@@ -12,7 +12,6 @@ test('promise',(done)=>{
         }, 500);
     })
      promise.then((res: any) => {
-        console.log(res);
         expect(res).toBe('1')
         done()
     }, (err: any) => {
