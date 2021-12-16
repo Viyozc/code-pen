@@ -53,4 +53,15 @@ const objFlat = (obj) => {
 
 console.log("objflat", objFlat(obj1));
 
-// 
+// [1,0,1,1,1,0,1]
+
+function cal(arr, sum){
+  if(arr.length <= 3) {
+    return sum + arr[0]
+  }
+  for(let i = arr.length - 1; i >= 0; i--) {
+      return sum + arr[arr.length -1] + Math.min(cal(arr.slice(0, -1), sum), cal(arr.slice(0, -2), sum))
+  }
+}
+
+console.log(123123, cal([1,0,1,1,1,0,1], 0))  

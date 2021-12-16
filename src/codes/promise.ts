@@ -4,9 +4,14 @@ enum STATUS {
   REJECTED
 }
 
-export class MPromise {
+const thenPromise: (...d: any) => any = (promise2, v, resolve, reject) => {
+  if( v === promise2) throw Error('error')
+  
+}
+
+export class MPromise<T> {
   status = STATUS.PENDDING;
-  value = undefined;
+  value: any = undefined;
   reason = undefined;
   resQueue: Function[] = [];
   rejQueue: Function[] = [];
@@ -18,8 +23,8 @@ export class MPromise {
     }
   }
 
-  resolve = (value: any) => {
-    setTimeout(() => {
+  resolve = (value: T) => {
+    queueMicrotask(() => {
       if (this.status === STATUS.PENDDING) {
         this.status = STATUS.FULLFILLED
         this.value = value;
@@ -33,7 +38,7 @@ export class MPromise {
   }
 
   reject = (err: any) => {
-    setTimeout(() => {
+    queueMicrotask(() => {
       if (this.status === STATUS.PENDDING) {
         this.status = STATUS.REJECTED
         this.reason = err;
@@ -45,21 +50,29 @@ export class MPromise {
     })
   }
 
-  then = (onFullfilled: any, onRejected: any) => {
+  then = (onFullfilled?: (d: any) => any, onRejected?: any) => {
     onFullfilled = typeof onFullfilled === 'function' ? onFullfilled : (s: any) => s;
     onRejected = typeof onRejected === 'function' ? onRejected : (e: any) => { throw e }
-    let promise2;
+    let promise2 = new MPromise((res, rej) => {
+      if(this.status === STATUS.FULLFILLED) {
+        queueMicrotask(() => {
+          let s  = onFullfilled!(this.value)
+
+        })
+      }
+    });
     if (this.status === STATUS.PENDDING) {
-      this.resQueue.push(() => onFullfilled(this.value))
+      this.resQueue.push(() => onFullfilled!(this.value))
       this.rejQueue.push(() => onRejected(this.reason))
     }
     if (this.status === STATUS.FULLFILLED) {
-
+      return new MPromise((onFullfilled, onRejected) => this.value)
     }
+    return new MPromise((onFullfilled, onRejected) => this.value)
   }
 
   catch = (onRejected: any) => {
-    return this.then(null, onRejected)
+    return this.then(undefined, onRejected)
   }
 
   static resolve = (val: any) => {
@@ -69,3 +82,25 @@ export class MPromise {
     return new MPromise((res, rej) => rej(err))
   }
 }
+
+const p = new MPromise((res, rej) => {
+  const s = 1;
+  console.log('s', s)
+  setTimeout(() => {
+    console.log('timout')
+    res(s)
+  }, 1000)
+  setTimeout(() => {
+    console.log('macro')
+  })
+  queueMicrotask(() => {
+    console.log('micro')
+  })
+})
+
+p.then((s: any) => {
+  console.log(2222, s)
+  return 333
+}).then((s: any) => {
+  console.log('3333', s)
+})
