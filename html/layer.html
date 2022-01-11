@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Will-change</title>
+    <style>
+      div {
+        width: 150px;
+        height: 30px;
+        margin: 20px;
+        padding: 10px;
+        background-color: #ddd;
+        color: #fff;
+      }
+
+      .left {
+        position: relative;
+        will-change: left;
+      }
+
+      .top {
+        position: relative;
+        will-change: top;
+      }
+
+      .bottom {
+        position: relative;
+        will-change: bottom;
+      }
+
+      .right {
+        position: relative;
+        will-change: right;
+      }
+
+      .opacity {
+        position: relative;
+        will-change: opacity;
+      }
+
+      .transform {
+        position: relative;
+        will-change: transform;
+      }
+      .box {
+          width: 100px;
+          height: 100px;
+          background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left">will-change: left</div>
+    <div class="top">will-change: top</div>
+    <div class="top">will-change: top</div>
+    <div class="top">will-change: top</div>
+    <div class="top">will-change: top</div>
+    <div class="top">will-change: top</div>
+    <div class="bottom">will-change: bottom
+        <div class="box bottom">Box</div>
+    </div>
+    <div class="box">Box</div>
+    <!-- <div class="right">will-change: right</div>
+    <div class="opacity">will-change: opacity</div>
+    <div class="transform">will-change: transform</div> -->
+  </body>
+</html>
